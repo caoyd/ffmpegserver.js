@@ -31,7 +31,7 @@
 (function() {
   "use strict";
 
-  var framesPerSecond = 60;
+  var framesPerSecond = 30;
   var numFrames = framesPerSecond * 5; // a 5 second 60fps video
   var frameNum = 0;
 
@@ -55,6 +55,9 @@
     a.download = filename;
     a.appendChild(document.createTextNode(url + size));
     document.body.insertBefore(a, progressElem);
+    if (location.href.indexOf('isRunInNode') != -1) {
+      window.close();
+    }
   }
 
   var capturer = new CCapture( {

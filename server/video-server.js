@@ -51,7 +51,7 @@ var VideoServer = function(options, startedCallback) {
   options = options || {};
   var self = this;
   var g = {
-    port: 8080,
+    port: 8083,
     baseDir: 'public',
     cwd: process.cwd(),
     files: {},

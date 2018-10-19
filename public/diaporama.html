@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Diaporama Example 2</title>
+  <!-- <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="index.css" type="text/css"> -->
+</head>
+<body>
+  <div id="diaporama"></div>
+  <!-- <div id="wrapper">
+    <h1>
+      <a href="https://github.com/gre/diaporama/">
+        Diaporama
+      </a>
+      example #2
+    </h1>
+    <a href="https://github.com/gre/diaporama-example2"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a>
+
+    <div id="diaporama"></div>
+
+    <button onclick="onBtnStartClick">Start</button>
+
+    <footer>
+      <p>View Source of the page</p>
+      <p>
+        <a href="https://github.com/gre/diaporama">
+          https://github.com/gre/diaporama
+        </a>
+      </p>
+    </footer>
+  </div> -->
+
+  <script src="res/diaporama.js"></script>
+  <script>
+
+var data = {
+  timeline: [
+  // {
+  //   "canvas2d": {
+  //     "background": "#89B",
+  //     "size": [ 800, 600 ],
+  //     "draws": [
+  //       { "font": "bold 80px sans-serif", "fillStyle": "#fff", "textBaseline": "middle", "textAlign": "center" },
+  //       [ "fillText", "Diaporama", 400, 250 ],
+  //       { "font": "normal 80px sans-serif", "fillStyle": "#fff", "textBaseline": "middle", "textAlign": "center" },
+  //       [ "fillText", "Example 2", 400, 350 ]
+  //     ]
+  //   },
+  //   "duration": 500,
+  //   "transitionNext": {
+  //     "duration": 1000
+  //   }
+  // }
+  ].concat([
+    "res/1.jpg",
+    "res/2.jpg",
+    // "res/3.jpg",
+    // "res/4.jpg",
+    "res/5.jpg"
+  ].map(function (src) {
+    return {
+      image: src,
+      duration: 1000,
+      kenburns: {
+        from: [0.8, [0.5,0.5]],
+        to: [1, [0.5,0.5]]
+      },
+      transitionNext: {
+        duration: 1000,
+        name: "circleopen"
+      }
+    };
+  })),
+  transitions: [
+    {"id":"35e8c18557995c77278e","name":"circleopen","owner":"gre","uniforms":{"smoothness":0.3,"opening":true},"html_url":"https://gist.github.com/35e8c18557995c77278e","created_at":"2014-05-16T13:40:51Z","updated_at":"2015-04-20T02:58:26Z","stars":0.0,"glsl":"\n#ifdef GL_ES\nprecision highp float;\n#endif\nuniform sampler2D from;uniform sampler2D to;uniform float progress;uniform vec2 resolution;uniform float smoothness;uniform bool opening;const vec2 center=vec2(0.5,0.5);const float SQRT_2=1.414213562373;void main(){vec2 p=gl_FragCoord.xy/resolution.xy;float x=opening?progress:1.-progress;float m=smoothstep(-smoothness,0.0,SQRT_2*distance(center,p)-x*(1.+smoothness));gl_FragColor=mix(texture2D(from,p),texture2D(to,p),opening?1.-m:m);}"}
+  ]
+};
+
+var diaporama = Diaporama(
+  document.querySelector("#diaporama"),
+  {
+    data: data,
+    width: 400,
+    height: 400,
+    autoplay: true,
+    loop: true
+  });
+
+window.diaporama = diaporama; // play with this variable :-)
+
+window.diaporama.on('play', function() { //{timeBuffered, loaded, total}
+  console.log('play')
+})
+
+window.diaporama.on('ended', function() { //{timeBuffered, loaded, total}
+  console.log('ended')
+  window.close();
+})
+
+function onBtnStartClick(event) {
+  window.diaporama.play();
+}
+  </script>
+</body>
+</html>

@@ -31,7 +31,7 @@
 (function() {
   "use strict";
 
-  var framesPerSecond = 60;
+  var framesPerSecond = 30;
   var numFrames = framesPerSecond * 5; // a 5 second 60fps video
   var frameNum = 0;
 
@@ -67,7 +67,7 @@
     //extension: ".mp4",
     //codec: "libx264",
     ffmpegArguments: [
-      "-b:v", "100k",  // really low video bitrate
+      "-b:v", "1500k",  // really low video bitrate
     ],
   } );
   capturer.start();
